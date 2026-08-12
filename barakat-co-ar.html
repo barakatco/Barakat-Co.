@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>بركات وشركاه</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=IBM+Plex+Sans+Arabic:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #070b0f;
+    --line: #1c2830;
+    --text: #eaf2f1;
+    --muted: #6b7d84;
+    --cyan: #4fe8d3;
+    --violet: #8a7dfb;
+    --amber: #ffb463;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{height:100%;}
+  body{
+    background:
+      radial-gradient(1100px 600px at 85% -10%, rgba(138,125,251,0.14), transparent 60%),
+      radial-gradient(900px 500px at 10% 15%, rgba(79,232,211,0.10), transparent 55%),
+      var(--bg);
+    color:var(--text);
+    font-family:'Tajawal', sans-serif;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    overflow-x:hidden;
+  }
+
+  .grid-overlay{
+    position:fixed; inset:0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 64px 64px;
+    pointer-events:none;
+    mask-image: radial-gradient(circle at 50% 30%, black, transparent 75%);
+    z-index:0;
+  }
+
+  header{
+    position:relative; z-index:2;
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 28px 6vw 0;
+  }
+  .brand{
+    font-family:'Tajawal', sans-serif;
+    font-weight:800;
+    font-size:19px;
+    letter-spacing:0.01em;
+  }
+  .brand span{color:var(--cyan);}
+  .status-pill{
+    display:flex; align-items:center; gap:8px;
+    font-family:'IBM Plex Sans Arabic', sans-serif;
+    font-size:12px; letter-spacing:0.02em;
+    color:var(--muted);
+  }
+  .status-pill .dot{
+    width:8px; height:8px; border-radius:50%;
+    background:var(--cyan);
+    box-shadow:0 0 10px 2px rgba(79,232,211,0.6);
+    animation: blink 2.4s ease-in-out infinite;
+  }
+  @keyframes blink{
+    0%,100%{opacity:1;}
+    50%{opacity:0.25;}
+  }
+
+  main{
+    position:relative; z-index:2;
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding: 40px 6vw 60px;
+  }
+
+  .flag-badge{
+    display:flex; align-items:center; gap:10px;
+    margin-bottom:24px;
+    opacity:0;
+    animation: rise 0.8s ease forwards 0.05s;
+  }
+  .flag-badge svg{
+    width:38px; height:auto;
+    border-radius:3px;
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.08);
+  }
+  .flag-badge span{
+    font-family:'IBM Plex Sans Arabic', sans-serif;
+    font-size:12px;
+    color:var(--muted);
+    letter-spacing:0.02em;
+  }
+
+  .eyebrow{
+    font-family:'IBM Plex Sans Arabic', sans-serif;
+    font-size:13px;
+    letter-spacing:0.06em;
+    color:var(--cyan);
+    margin-bottom:20px;
+    opacity:0;
+    animation: rise 0.8s ease forwards 0.15s;
+  }
+
+  h1{
+    font-family:'Tajawal', sans-serif;
+    font-weight:800;
+    font-size: clamp(2.4rem, 7vw, 4.6rem);
+    line-height:1.25;
+    letter-spacing:0;
+    max-width: 16ch;
+    background: linear-gradient(180deg, #ffffff 0%, #c9d6d4 100%);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    opacity:0;
+    animation: rise 0.9s ease forwards 0.3s;
+  }
+
+  .sub{
+    margin-top:20px;
+    max-width:42ch;
+    font-size: 1.08rem;
+    line-height:1.9;
+    color:var(--muted);
+    opacity:0;
+    animation: rise 0.9s ease forwards 0.45s;
+  }
+  .sub b{color:var(--text); font-weight:600;}
+
+  @keyframes rise{
+    from{opacity:0; transform:translateY(14px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+
+  .vitals{
+    margin-top:52px;
+    width:min(680px, 88vw);
+    opacity:0;
+    animation: rise 1s ease forwards 0.6s;
+  }
+  .vitals-frame{
+    border:1px solid var(--line);
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0));
+    border-radius:14px;
+    padding:22px 22px 16px;
+  }
+  .vitals-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    font-family:'IBM Plex Sans Arabic', sans-serif;
+    font-size:12px;
+    color:var(--muted);
+    letter-spacing:0.02em;
+    margin-bottom:8px;
+  }
+  .vitals-head .live{color:var(--cyan);}
+  svg#pulse{
+    width:100%; height:100px; display:block;
+  }
+  .pulse-path{
+    fill:none;
+    stroke:var(--cyan);
+    stroke-width:2;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+    filter: drop-shadow(0 0 6px rgba(79,232,211,0.55));
+    stroke-dasharray: 1400;
+    stroke-dashoffset: 1400;
+    animation: draw 3.6s linear infinite;
+  }
+  .pulse-path.violet{
+    stroke:var(--violet);
+    opacity:0.35;
+    filter: drop-shadow(0 0 6px rgba(138,125,251,0.4));
+    animation: draw 3.6s linear infinite;
+    animation-delay: -1.2s;
+  }
+  @keyframes draw{
+    0%{stroke-dashoffset:1400;}
+    60%{stroke-dashoffset:0;}
+    100%{stroke-dashoffset:-1400;}
+  }
+  .readout{
+    display:flex; justify-content:space-between;
+    font-family:'IBM Plex Sans Arabic', sans-serif;
+    font-size:12.5px;
+    color:var(--muted);
+    letter-spacing:0.01em;
+    margin-top:10px;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  .readout span b{color:var(--text); font-weight:500;}
+
+  footer{
+    position:relative; z-index:2;
+    display:flex; justify-content:space-between; align-items:center;
+    padding: 20px 6vw 28px;
+    font-family:'IBM Plex Sans Arabic', sans-serif;
+    font-size:12px;
+    color:var(--muted);
+    letter-spacing:0.01em;
+    flex-wrap:wrap;
+    gap:10px;
+  }
+
+  @media (max-width:560px){
+    header, footer{padding-left:5vw; padding-right:5vw;}
+    .vitals{margin-top:38px;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .pulse-path, .pulse-path.violet, .status-pill .dot, .eyebrow, h1, .sub, .vitals, .flag-badge{
+      animation:none !important;
+      opacity:1 !important;
+      transform:none !important;
+    }
+    .pulse-path{stroke-dashoffset:0;}
+  }
+</style>
+</head>
+<body>
+<div class="grid-overlay"></div>
+
+<header>
+  <div class="brand">بركات <span>وشركاه</span></div>
+  <div class="status-pill"><span class="dot"></span> قيد التأسيس</div>
+</header>
+
+<main>
+  <div class="flag-badge">
+    <svg viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg">
+      <rect width="900" height="200" y="0" fill="#007A3D"/>
+      <rect width="900" height="200" y="200" fill="#ffffff"/>
+      <rect width="900" height="200" y="400" fill="#000000"/>
+      <g fill="#CE1126">
+        <polygon points="300,240 314,278 355,278 322,302 335,340 300,317 265,340 278,302 245,278 286,278"/>
+        <polygon points="450,240 464,278 505,278 472,302 485,340 450,317 415,340 428,302 395,278 436,278"/>
+        <polygon points="600,240 614,278 655,278 622,302 635,340 600,317 565,340 578,302 545,278 586,278"/>
+      </g>
+    </svg>
+    <span>سوريا</span>
+  </div>
+
+  <div class="eyebrow">بركات وشركاه</div>
+  <h1>رؤية تتشكل عبر قطاعات متعددة</h1>
+  <p class="sub">التركيز الأساسي على <b>الرعاية الصحية</b> — مع الانفتاح على قطاعات أخرى مثل <b>الصناعة</b> و<b>البناء</b>. بركات وشركاه في طور التأسيس، بنظرة تمتد من سوريا إلى الخارج. التفاصيل لا تزال قيد التشكّل.</p>
+
+  <div class="vitals">
+    <div class="vitals-frame">
+      <div class="vitals-head">
+        <span>الإشارة // بركات وشركاه</span>
+        <span class="live">مباشر</span>
+      </div>
+      <svg id="pulse" viewBox="0 0 700 100" preserveAspectRatio="none">
+        <path class="pulse-path violet" d="M0,55 L120,55 L140,55 L155,15 L170,90 L185,55 L210,55 L700,55" />
+        <path class="pulse-path" d="M0,50 L140,50 L158,50 L172,10 L188,95 L204,50 L230,50 L440,50 L458,50 L472,20 L488,85 L504,50 L520,50 L700,50" />
+      </svg>
+      <div class="readout">
+        <span>الحالة: <b>قيد التأسيس</b></span>
+        <span>القطاع الأساسي: <b>رعاية صحية</b></span>
+        <span>الموعد: <b>غير محدد</b></span>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div>بركات وشركاه</div>
+  <div>© <span id="year"></span></div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
